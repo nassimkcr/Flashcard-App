@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import { createDeck } from '../../utils/api';
 
 
@@ -8,6 +8,7 @@ const[formData, setFormData] = useState({
     name:"",
     description:""
 })
+const history = useHistory()
 
 const changeHandler = ({target})=>(
 
@@ -20,11 +21,16 @@ const changeHandler = ({target})=>(
 
 const handleSubmit = (event)=>{
     event.preventDefault()
+    if(formData['name'].trim().length <5 || formData['description'].trim().length <5 ){
+        window.alert("you need at least 5 valid characters in your deck!")
+        return null
+    }
     createDeck(formData)
     setFormData({ name:"",
     description:""})
+    history.push('/')
+    
 }
-
 
 
  

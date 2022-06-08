@@ -29,12 +29,16 @@ const history = useHistory()
 
 
  const SubmitHandler =(event)=>{
-     event.preventDefault()
-     updateCard(formData)
-     history.push(`/decks/${deckId}`);
-     window.location.reload(false)
-     
- }
+    event.preventDefault()
+    if(formData['front'].trim().length < 5 || formData['back'].trim().length <5 ){
+       window.alert("you need at least 5 valid characters in your card!")
+       return null
+   }
+    updateCard(formData)
+    history.push(`/decks/${deckId}`);
+    window.location.reload(false)
+    
+}
 
     return(
     <div>

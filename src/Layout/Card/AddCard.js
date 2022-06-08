@@ -1,4 +1,4 @@
-import {React, useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import {useParams, Link, useHistory} from "react-router-dom";
 import { readDeck, createCard } from '../../utils/api'; 
 import CardsForm from './CardsForm';
@@ -29,11 +29,15 @@ const deckId = params.deckId
 
 
  const saveCard =(event)=>{
-     event.preventDefault()
-     createCard(deckId, formData)
-     setFormData({front:"", back:""})
-     history.push(`/decks/${deckId}`)
- }
+    event.preventDefault()
+    if(formData['front'].trim().length < 5 || formData['back'].trim().length <5 ){
+       window.alert("you need at least 5 valid characters in your card!")
+       return null
+   }
+    createCard(deckId, formData)
+    setFormData({front:"", back:""})
+    history.push(`/decks/${deckId}`)
+}
     
     return(
     <div>
